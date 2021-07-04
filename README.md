@@ -19,19 +19,19 @@ Cancer Institute to add some small changes to work with our scanners.
 
 ## What is the license?
 This code is licensed under the GNU LGPL version 2.1, not any later version.
-See the file lgpl-2.1.txt for the text of the license.
+See the file `lgpl-2.1.txt` for the text of the license.
 
 
 ## Requirements
-This library requires zlib, libpng, libjpeg, libtiff >= 4.0, OpenJPEG >= 2.1,
-GDK-PixBuf, libxml2, SQLite >= 3.6.20, cairo >= 1.2, and glib >= 2.56.
+This library requires `zlib`, `libpng`, `libjpeg`, `libtiff >= 4.0`, `OpenJPEG >= 2.1`,
+`GDK-PixBuf`, `libxml2`, `SQLite >= 3.6.20`, `cairo >= 1.2`, and `glib >= 2.56`.
 
-If you want to run the test suite, you will need PyYAML, python-requests,
-xdelta3, cjpeg and djpeg (from libjpeg), a Git checkout of OpenSlide,
+If you want to run the test suite, you will need `PyYAML`, `python-requests`,
+`xdelta3`, `cjpeg` and `djpeg` (from `libjpeg`), a Git checkout of OpenSlide,
 at least one installed font, and > 120 GB of disk space.  Valgrind mode
 requires Valgrind, plus debug symbols for library dependencies (particularly
 glib2) and Fontconfig.  Profile mode requires Valgrind.  Coverage mode
-requires gcov and Doxygen.
+requires `gcov` and `Doxygen`.
 
 
 ## Features
@@ -126,6 +126,10 @@ Pittsburgh.
 
 ## How to build?
 If you want to build from the Git repository, you will first need to install a few packages. 
+
+**Be aware**: `cairo` needs to be linked against `pixman >= 0.4` as earlier versions contain
+a bug which might zero-out some parts of the slide! This version is typically not available
+in the distribution repositories.
 
 ### Ubuntu
 
