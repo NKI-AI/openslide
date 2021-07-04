@@ -33,6 +33,7 @@ pkg_check_modules(libxml2 REQUIRED IMPORTED_TARGET libxml-2.0)
 pkg_check_modules(sqlite3 REQUIRED IMPORTED_TARGET sqlite3>=3.6.20)
 pkg_check_modules(valgrind IMPORTED_TARGET valgrind)
 
+
 if(WITH_VALGRIND)
     set(HAVE_VALGRID 1)
 else()
@@ -156,6 +157,7 @@ if(HAS_VISIBILITY)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fvisibility=hidden")
 endif()
 target_compile_options(openslide PUBLIC -pedantic)
+set_target_properties(openslide PROPERTIES VERSION ${OPENSLIDE_VERSION} SOVERSION ${OPENSLIDE_MICRO_VERSION})
 
 install(TARGETS openslide LIBRARY DESTINATION lib)
 
