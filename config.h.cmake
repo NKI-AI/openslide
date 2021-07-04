@@ -1,5 +1,5 @@
 // Set to the fopen() flag string that sets FD_CLOEXEC, or an empty string if not supported. */
-#define FOPEN_CLOEXEC_FLAG "e"
+#cmakedefine FOPEN_CLOEXEC_FLAG "${FOPEN_CLOEXEC_FLAG}"
 
 // includes (CHECKED)
 #cmakedefine01 HAVE_DLFCN_H
@@ -13,6 +13,7 @@
 #cmakedefine01 HAVE_SYS_TYPES_H
 #cmakedefine01 HAVE_UNISTD_H
 #cmakedefine01 STDC_HEADERS
+#cmakedefine HAVE_VALGRIND
 
 // check functions
 #cmakedefine HAVE_FCNTL ${HAVE_FCNTL}
