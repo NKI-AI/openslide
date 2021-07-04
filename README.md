@@ -1,14 +1,10 @@
-OpenSlide
-=========
+# OpenSlide
+
 
 Carnegie Mellon University and others
 https://openslide.org/
 
-
-
-What is this?
--------------
-
+## What is this?
 This library reads whole slide image files (also known as virtual slides).
 It provides a consistent and simple API for reading files from multiple
 vendors.
@@ -17,32 +13,28 @@ The version on NKI-AI is forked by the AI for Oncology group at the Netherlands
 Cancer Institute to add some small changes to work with our scanners.
 * Allow the reading of a larger class of 3dhistech images.
 * Some Aperio scanners save `Mag` as float, adapted this accordingly.
+* Exposed `set_cache_size` so this can be disabled.
+* Use cmake to compile library.
 
 
-What is the license?
---------------------
-
+## What is the license?
 This code is licensed under the GNU LGPL version 2.1, not any later version.
-See the file lgpl-2.1.txt for the text of the license.
+See the file `lgpl-2.1.txt` for the text of the license.
 
 
-Requirements
-------------
+## Requirements
+This library requires `zlib`, `libpng`, `libjpeg`, `libtiff >= 4.0`, `OpenJPEG >= 2.1`,
+`GDK-PixBuf`, `libxml2`, `SQLite >= 3.6.20`, `cairo >= 1.2`, and `glib >= 2.56`.
 
-This library requires zlib, libpng, libjpeg, libtiff >= 4.0, OpenJPEG >= 2.1,
-GDK-PixBuf, libxml2, SQLite >= 3.6.20, cairo >= 1.2, and glib >= 2.56.
-
-If you want to run the test suite, you will need PyYAML, python-requests,
-xdelta3, cjpeg and djpeg (from libjpeg), a Git checkout of OpenSlide,
+If you want to run the test suite, you will need `PyYAML`, `python-requests`,
+`xdelta3`, `cjpeg` and `djpeg` (from `libjpeg`), a Git checkout of OpenSlide,
 at least one installed font, and > 120 GB of disk space.  Valgrind mode
 requires Valgrind, plus debug symbols for library dependencies (particularly
 glib2) and Fontconfig.  Profile mode requires Valgrind.  Coverage mode
-requires gcov and Doxygen.
+requires `gcov` and `Doxygen`.
 
 
-Features
---------
-
+## Features
 The library can read Aperio, Hamamatsu, Leica, MIRAX, Sakura, Trestle,
 and Ventana formats, as well as TIFF files that conform to a simple
 convention. (InterScope files tend to be readable as this generic TIFF.)
@@ -55,9 +47,7 @@ without locking. (But you must lock or otherwise use memory barriers
 when passing the object between threads.)
 
 
-Properties
-----------
-
+## Properties
 The library exposes certain properties as string key-value pairs for
 a given virtual slide. (These are accessed by way of the
 `openslide_get_property_names` and `openslide_get_property_value` calls.)
@@ -102,9 +92,7 @@ OpenSlide itself creates these properties (for now):
    The name of the vendor backend.
 
 
-Other Documentation
--------------------
-
+## Other Documentation
 The definitive API reference is in openslide.h. For an HTML version, see
 doc/html/openslide_8h.html in this distribution.
 
@@ -130,18 +118,18 @@ There is also an older technical report:
  http://reports-archive.adm.cs.cmu.edu/anon/2008/CMU-CS-08-136.pdf
 
 
-Acknowledgements
-----------------
-
+## Acknowledgements
 OpenSlide has been supported by the National Institutes of Health and
 the Clinical and Translational Science Institute at the University of
 Pittsburgh.
 
 
-How to build?
--------------
-
+## How to build?
 If you want to build from the Git repository, you will first need to install a few packages. 
+
+**Be aware**: `cairo` needs to be linked against `pixman >= 0.4` as earlier versions contain
+a bug which might zero-out some parts of the slide! This version is typically not available
+in the distribution repositories.
 
 ### Ubuntu
 
@@ -161,6 +149,8 @@ sudo yum install glib2-devel libtiff-devel gdk-pixbuf2-devel libxml2-devel sqlit
 sudo dnf --enablerepo=powertools install openjpeg2-devel
 ```
 
+### Building
+#### Autoconf
 The package can subsequently built using
 ```
 autoreconf -i
@@ -170,6 +160,16 @@ sudo make install
 ```
 Once built, run `sudo ldconfig` to ensure that the new library is properly found.
 If you have installed `openslide-python` it should now use the recently compiled version.
+
+#### cmake (experimental)
+The package can subsequently built using
+```
+mkdir build
+cd build
+ccmake ..
+make
+sudo make install
+```
 
 
 Good luck!
