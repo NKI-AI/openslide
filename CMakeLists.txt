@@ -135,7 +135,10 @@ target_link_libraries(openslide
         PkgConfig::gdkpixbuf
         PkgConfig::libxml2
         PkgConfig::sqlite3)
-# TODO: Add valgrind if exist
+if(HAS_VALGRIND)
+    target_link_libraries(openslide
+            PkgConfig::valgrind)
+endif()
 
 add_subdirectory(common)
 if(BUILD_TESTS)
