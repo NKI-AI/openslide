@@ -113,6 +113,7 @@ set(OPENSLIDE_SRC
 
 set(make-table_SOURCES ${SOURCE_DIR}/make-tables.c)
 add_executable(make-tables ${make-table_SOURCES})
+target_link_libraries(make-tables m)
 add_custom_target(make-tables_run
         COMMAND make-tables openslide-tables.c
         COMMENT "Creating openslide-tables.c..."
@@ -133,8 +134,7 @@ target_link_libraries(openslide
         PkgConfig::libpng
         PkgConfig::gdkpixbuf
         PkgConfig::libxml2
-        PkgConfig::sqlite3
-        m)
+        PkgConfig::sqlite3)
 if(HAS_VALGRIND)
     target_link_libraries(openslide
             PkgConfig::valgrind)
