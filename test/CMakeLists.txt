@@ -27,7 +27,7 @@ set(TEST_SOURCES
         mosaic.c
         profile.c)
 
-# Driver???
+# TODO: need to port the driver.in
 
 foreach(test_sourcefile ${TEST_SOURCES} )
     string(REPLACE ".c" "" test ${test_sourcefile} )
@@ -36,6 +36,7 @@ foreach(test_sourcefile ${TEST_SOURCES} )
             PRIVATE openslide_common
             PRIVATE openslide
             PkgConfig::cairo
-            PkgConfig::glib2)
+            PkgConfig::glib2
+            m)
 endforeach()
 
