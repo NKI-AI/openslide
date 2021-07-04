@@ -18,3 +18,5 @@ target_link_libraries(openslide_common
         PRIVATE openslide
         PkgConfig::cairo
         PkgConfig::glib2)
+
+install(TARGETS openslide_common LIBRARY DESTINATION lib)

@@ -33,6 +33,10 @@ foreach(tool_sourcefile ${TOOL_SOURCES} )
             PkgConfig::glib2)
 endforeach()
 
+install (TARGETS openslide-show-properties RUNTIME DESTINATION bin)
+install (TARGETS openslide-quickhash1sum RUNTIME DESTINATION bin)
+install (TARGETS openslide-write-png RUNTIME DESTINATION bin)
+
 # TODO:
 # Install tools
 # Install manfiles

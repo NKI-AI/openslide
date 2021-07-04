@@ -141,7 +141,10 @@ if(HAS_VALGRIND)
             PkgConfig::valgrind)
 endif()
 
-add_subdirectory(common)
+if(BUILD_TESTS OR BUILD_TOOLS)
+    add_subdirectory(common)
+endif()
+
 if(BUILD_TESTS)
     add_subdirectory(test)
 endif(BUILD_TESTS)
