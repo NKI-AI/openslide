@@ -13,7 +13,7 @@ include(CheckIncludeFiles)
 include(CheckSymbolExists)
 include(CheckFunctionExists)
 include(CheckTypeSize)
-include(CheckCXXCompilerFlag)
+include(CheckCCompilerFlag)
 include(CheckVariableExists)
 
 option(WITH_VALGRID "Build with Valgrid" OFF)
@@ -47,7 +47,7 @@ else()
 endif()
 
 # Check compiler flags
-check_cxx_compiler_flag(-fvisibility=hidden HAVE_VISIBILITY)
+check_c_compiler_flag(-fvisibility=hidden HAVE_VISIBILITY)
 
 # Check if functions exist
 check_function_exists(fcntl HAVE_FCNTL)
@@ -122,7 +122,6 @@ add_custom_target(make-tables_run
 add_library(openslide SHARED "${OPENSLIDE_SRC}")
 add_dependencies(openslide make-tables_run)
 
-
 target_include_directories(openslide PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 target_link_libraries(openslide
         PkgConfig::zlib
@@ -134,7 +133,8 @@ target_link_libraries(openslide
         PkgConfig::libpng
         PkgConfig::gdkpixbuf
         PkgConfig::libxml2
-        PkgConfig::sqlite3)
+        PkgConfig::sqlite3
+        m)
 if(HAS_VALGRIND)
     target_link_libraries(openslide
             PkgConfig::valgrind)
@@ -147,6 +147,15 @@ endif(BUILD_TESTS)
 if(BUILD_TOOLS)
     add_subdirectory(tools)
 endif(BUILD_TOOLS)
+
+# -Wnested-extern is not added?
+set(WARN_CFLAGS "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations")
+set(CMAKE_C_FLAGS "${WARN_CFLAGS}")
+
+if(HAS_VISIBILITY)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fvisibility=hidden")
+endif()
+target_compile_options(openslide PUBLIC -pedantic)
 
 install(TARGETS openslide LIBRARY DESTINATION lib)
 
